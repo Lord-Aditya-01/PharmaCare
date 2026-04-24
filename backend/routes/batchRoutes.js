@@ -1,0 +1,10 @@
+const express = require('express');
+const { protect } = require('../middleware/authMiddleware');
+const { getAll,getById,create,update,remove,getExpiryAlerts,importBatches } = require('../controllers/batchController');
+const router = express.Router();
+router.use(protect);
+router.get('/alerts/expiry', getExpiryAlerts);
+router.post('/import', importBatches);
+router.route('/').get(getAll).post(create);
+router.route('/:id').get(getById).put(update).delete(remove);
+module.exports = router;
